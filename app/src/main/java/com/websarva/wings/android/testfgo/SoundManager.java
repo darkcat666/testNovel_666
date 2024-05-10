@@ -13,8 +13,7 @@ public class SoundManager {
 
         // 効果音登録
 //        int sound_1 = soundPool.load(this, R.raw.hit, 1);
-//        int sound_2 = soundPool.load(this, R.raw.hit, 1);
-//        int sound_3 = soundPool.load(this, R.raw.hit, 1);
+
     }
 
     // 登録した変数名の効果音を再生

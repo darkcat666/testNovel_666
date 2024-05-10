@@ -113,9 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
             // 選択肢を消す（共通処理）
             viewDisappearButton();
-
-//            // 1つ次以降のストーリーフラグをfalseにする
-//            story.setCurrentStory(story.getCurrentStory());
         });
 
         // ボタンに効果音を割り当てる
@@ -128,9 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
             // 選択肢を消す（共通処理）
             viewDisappearButton();
-
-//            // 2つ次以降のストーリーフラグをfalseにする
-//            story.setCurrentStory(story.getCurrentStory() + 1);
         });
 
         // 仮タッチ時にイベントが進むようにする
@@ -418,26 +412,6 @@ public class MainActivity extends AppCompatActivity {
             playFromMediaPlayer(R.raw.onyourmark);
         }
     }
-
-//    // 音楽ファイルの再生
-//    // rValueMusic : 再生する音楽のR値
-//    public void playFromMediaPlayer(int rValueMusic) {
-//        util.getMediaPlayer() = MediaPlayer.create(this, rValueMusic);
-//
-//        // ループ設定
-//        mediaPlayer.setLooping(true);
-//
-//        // メディアプレイヤー再生
-//        mediaPlayer.start();
-//    }
-//
-//    // 音楽ファイルの停止
-//    public void stopFromMediaPlayer() {
-//        if (mediaPlayer.isPlaying()) {
-//            mediaPlayer.stop();
-//        }
-//    }
-
 
     // 背景画像の差し替え
     // rValueView : 差し替える画像のR値
