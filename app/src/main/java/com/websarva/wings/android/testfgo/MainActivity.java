@@ -243,127 +243,99 @@ public class MainActivity extends AppCompatActivity {
 
     // popStory関数を実行する中身の関数
     // popStory関数を直すときはここを直す
-    private void execPopStoryText(){
+    private void execPopStoryText() {
         // 選択肢を選ぶまで凍らせるフラグがfalseの時にしか実行できない
-        if (story.getStoryFreezeFlg() == false) {
-
-            if (firstFlag && story.getStory(number) instanceof String) {
-                // changeViewがストーリーの末尾に存在するとき（来ないと思う）
-                if (((String) story.getStory(number)).indexOf("changeView") != -1) {
-                    // 末尾のコマンド文字列をトリム
-                    String tmpStrValue = ((String) story.getStory(number)).replace("changeView", "");
-                    int tmpRValue = Integer.parseInt(tmpStrValue);
-
-                    changeView(tmpRValue);
-                    // showTextがストーリーの末尾に存在するとき
-                } else if (((String) story.getStory(number)).indexOf("showText") != -1) {
-                    // 末尾のコマンド文字列をトリム
-                    showText(story.getStory(number).toString().replace("showText", ""));
-                    // ストーリーを最後まで見ないと読めないようにする
-                }
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // showTextを連続で実行しているときの連打制御用if文
-            } else if (((String) story.getStory(number)).indexOf("changeView") != -1) {
-                // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("changeView", "");
-                int tmpRValue = Integer.parseInt(tmpStrValue);
-
-                changeView(tmpRValue);
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
-                // ViewChooseButtonがストーリーの末尾に存在するとき
-            } else if (((String) story.getStory(number)).indexOf("viewChooseButton") != -1) {
-                // 引数によって分岐
-                if (((String) story.getStory(number)).indexOf("viewChooseButton(1)") != -1) {
-                    viewChooseButton(1);
-                } else if (((String) story.getStory(number)).indexOf("viewChooseButton(2)") != -1) {
-                    viewChooseButton(2);
-                }
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // テキストをクリアする
-            } else if (((String) story.getStory(number)).indexOf("ClearText") != -1) {
-                // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("ClearText", "");
-
-                // clearText()呼び出し
-                ClearText();
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-            } else if ((story.getOldStory().toString().replace("qqq", "").replace("changeView", "")
-                    .replace("showText", "").equals(textViewUp.getText().toString() + textViewDown.getText().toString()))) {
-                // showTextがストーリーの末尾に存在するとき
-                if (((String) story.getStory(number)).indexOf("showText") != -1) {
-                    // 末尾のコマンド文字列をトリム
-                    showText(story.getStory(number).toString().replace("showText", ""));
-                }
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
-                // setChooseTextがストーリーの末尾に存在するとき
-            } else if (((String) story.getStory(number)).indexOf("setChooseText") != -1) {
-                // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("setChooseText", "");
-
-                // それぞれの引数を「qqq」またぎで分割して関数に代入
-                String firstStr1 = tmpStrValue.substring(0, tmpStrValue.indexOf("qqq"));
-                String firstStr2 = tmpStrValue.substring(tmpStrValue.indexOf("qqq") + 3);
-
-                // setChooseText()呼び出し
-                setChooseText(firstStr1, firstStr2);
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
-                // 音楽を変更するとき「playFromMediaPlayer」
-            } else if (((String) story.getStory(number)).indexOf("playFromMediaPlayer") != -1) {
-                // 音楽を消してから別のを鳴らす
-                stopFromMediaPlayer();
-
-                // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("playFromMediaPlayer", "");
-                // R値に変換
-                int playTarget_R = Integer.parseInt(tmpStrValue);
-
-                // playFromMediaPlayer()呼び出し
-                playFromMediaPlayer(playTarget_R);
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
-                // テキストをクリアする
-            } else if (((String) story.getStory(number)).indexOf("ClearText") != -1) {
-                // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("ClearText", "");
-
-                // clearText()呼び出し
-                ClearText();
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-            } else if (((String) story.getStory(number)).indexOf("sleeping") != -1) {
-                // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("sleeping", "");
-
-                // sleeping()呼び出し
-                sleeping();
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
-                // １命令待機させる「STOP」（飛ばさないようにしたいときに使う）
-            } else if (((String) story.getStory(number)).indexOf("STOP") != -1) {
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-            }
+        if (!story.getStoryFreezeFlg()) {
+            String currentStory = (String) story.getStory(number);
+            // processStoryCommand関数の呼び出し
+            processStoryCommand(currentStory);
+            firstFlag = false;
+            story.setNumber(story.getNumber() + 1);
         }
+        
+        // ログ出力関数の呼び出し
+        logCurrentState();
+    }
+    
+    private void processStoryCommand(String currentStory) {
+        if (currentStory.contains("changeView")) {
+            processChangeViewCommand(currentStory);
+        } else if (currentStory.contains("showText")) {
+            processShowTextCommand(currentStory);
+        } else if (currentStory.contains("viewChooseButton")) {
+            processViewChooseButtonCommand(currentStory);
+        } else if (currentStory.contains("ClearText")) {
+            processClearTextCommand();
+        } else if (currentStory.contains("setChooseText")) {
+            processSetChooseTextCommand(currentStory);
+        } else if (currentStory.contains("playFromMediaPlayer")) {
+            processPlayFromMediaPlayerCommand(currentStory);
+        } else if (currentStory.contains("sleeping")) {
+            processSleepingCommand();
+        } else if (currentStory.contains("STOP")) {
+            // STOP command: do not automatically progress to the next story.
+        } else {
+            // Log or handle unexpected commands.
+        }
+    }
+    
+    private void processChangeViewCommand(String currentStory) {
+        String tmpStrValue = currentStory.replace("changeView", "");
+        int tmpRValue = Integer.parseInt(tmpStrValue);
+        changeView(tmpRValue);
+        continueExecution();
+    }
+    
+    private void processShowTextCommand(String currentStory) {
+        showText(currentStory.replace("showText", ""));
+        continueExecution();
+    }
+    
+    private void processViewChooseButtonCommand(String currentStory) {
+        if (currentStory.contains("viewChooseButton(1)")) {
+            viewChooseButton(1);
+        } else if (currentStory.contains("viewChooseButton(2)")) {
+            viewChooseButton(2);
+        }
+        continueExecution();
+    }
+    
+    private void processClearTextCommand() {
+        ClearText();
+        continueExecution();
+    }
+    
+    private void processSetChooseTextCommand(String currentStory) {
+        String tmpStrValue = currentStory.replace("setChooseText", "");
+        String firstStr1 = tmpStrValue.substring(0, tmpStrValue.indexOf("qqq"));
+        String firstStr2 = tmpStrValue.substring(tmpStrValue.indexOf("qqq") + 3);
+        setChooseText(firstStr1, firstStr2);
+        continueExecution();
+    }
+    
+    private void processPlayFromMediaPlayerCommand(String currentStory) {
+        stopFromMediaPlayer();
+        String tmpStrValue = currentStory.replace("playFromMediaPlayer", "");
+        int playTarget_R = Integer.parseInt(tmpStrValue);
+        playFromMediaPlayer(playTarget_R);
+        continueExecution();
+    }
+    
+    private void processSleepingCommand() {
+        sleeping();
+        continueExecution();
+    }
+    
+    private void continueExecution() {
+        execPopStoryText();
+    }
+    
+    private void logCurrentState() {
         Log.e("tag", story.getStory(number - 2).toString().replace("qqq", "").replace("changeView", "")
                 .replace("showText", ""));
         Log.e("tag", textViewUp.getText().toString() + textViewDown.getText().toString());
     }
+    
 
 
     // 画面タッチしたらストーリーをポップする
@@ -413,21 +385,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 背景画像の差し替え
-    // rValueView : 差し替える画像のR値
-    private void changeView(int rValueView) {
-        ImageView myImage = findViewById(R.id.imageView);
+    // ImageView の Drawable を更新する共通メソッド
+    // imageViewId : 更新する ImageView の ID
+    // rValueView : 差し替える画像の R 値
+    private void updateImageView(int imageViewId, int rValueView) {
+        ImageView myImage = findViewById(imageViewId);
         Drawable myDrawable = getResources().getDrawable(rValueView);
         myImage.setImageDrawable(myDrawable);
     }
 
-    // アイコン画像の差し替え
-    // rValueView : 差し替えるアイコン画像のR値
-    private void changeIconView(int rValueView) {
-        ImageView myImage = findViewById(R.id.view_icon);
-        Drawable myDrawable = getResources().getDrawable(rValueView);
-        myImage.setImageDrawable(myDrawable);
+    // 背景画像の差し替え
+    // rValueView : 差し替える画像の R 値
+    private void changeView(int rValueView) {
+        updateImageView(R.id.imageView, rValueView);
     }
+
+
 
     // 選択ボタンを表示させる
     // count：1~2
@@ -556,65 +529,44 @@ public class MainActivity extends AppCompatActivity {
 
     // （showText内で使用）
     private Runnable taskWaiting(String targetString_1, String targetString_2, CyclicBarrier barrier, Runnable runnable) {
-
         // 結合テキスト
         String mergeText = targetString_1 + targetString_2;
-
-        // テキスト出力用の変数
-        String outputText = "";
-
-        // 2行目用のカウント変数
-        int kk = 0;
-
+    
         // 全ての文字を表示させるまで繰り返す
         for (int k = 0; k <= mergeText.length(); k++) {
-
-            // 別スレッドからPOSTを実行
-            // 行番号に応じてテキストを表示させる
-            outputText = mergeText.substring(0, k);
-
-            // 2行目の場合はtargetString_2の引数で出力用変数を上書き
-            if (k > targetString_1.length()) {
-                kk++;
-                outputText = targetString_2.substring(0, kk);
-            }
-
+            // 処理を切り分けたメソッドを使用して処理を行う
             if (k <= targetString_1.length()) {
-                String finalOutputText = outputText;
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        textViewUp.setText(finalOutputText);
-                        // 再描画して文字を即表示させる
-                        textViewUp.invalidate();
-                        while (textViewUp.getText().toString().length() == targetString_1.length()) {
-                            CyclicbarrierAwait(barrier);
-                            break;
-                        }
-                    }
-                }, k * TEXT_SPEED_INTERVAL);
-            } else if (k > targetString_1.length()) {
-                String finalOutputText1 = outputText;
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        textViewDown.setText(finalOutputText1);
-                        // 再描画して文字を即表示させる
-                        textViewDown.invalidate();
-                        while (true) {
-                            if (textViewDown.getText().toString().length() == targetString_2.length())
-                            CyclicbarrierAwait(barrier);
-                            break;
-                        }
-                    }
-                }, k * TEXT_SPEED_INTERVAL);
+                updateTextViewWithDelay(k, targetString_1, textViewUp, barrier, targetString_1.length());
+            } else {
+                updateTextViewWithDelay(k - targetString_1.length(), targetString_2, textViewDown, barrier, targetString_2.length());
             }
         }
+    
         // 仮待機
         CyclicbarrierAwait(barrier);
-
+    
         return runnable;
     }
+    
+    private void updateTextViewWithDelay(int k, String targetString, TextView textView, CyclicBarrier barrier, int finalLength) {
+        String outputText = targetString.substring(0, k);
+        handler.postDelayed(() -> {
+            textView.setText(outputText);
+            textView.invalidate();
+            if (textView.getText().toString().length() == finalLength) {
+                CyclicbarrierAwait(barrier);
+            }
+        }, k * TEXT_SPEED_INTERVAL);
+    }
+    
+    private void CyclicbarrierAwait(CyclicBarrier barrier) {
+        try {
+            barrier.await();
+        } catch (InterruptedException | BrokenBarrierException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+    
 
     // CyclicBarrierのawait処理
     private void CyclicbarrierAwait(CyclicBarrier barrier) {
