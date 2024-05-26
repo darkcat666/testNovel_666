@@ -141,11 +141,10 @@ public class StoryManager {
         }
     }
 
-
     // ストーリーをセット
     {
         storyList_1.add("qqq"); // 0：不使用
-        storyList_1.add("誰かが言った。qqq「神が死んだ」" + "showText"); // 1：showText
+        storyList_1.add("誰かが言った。qqq「神が死んだ」" + "showText" + "vvv1"); // 1：showText vvv1：voice1を追加で再生
         storyList_1.add("2022年は地球が最も寒かったらしい・・・qqq「どんどん酷くなっていくね」" + "showText"); // 2：showText
         storyList_1.add("だが、本当は神は死んじゃあいなかった。qqq「じゃあ、一体どこに神がいるというのか？このフヌケ野郎？」" + "showText");// 3：showText
         storyList_1.add("神は俺だ！！qqq" + "showText");// 4：showText
@@ -231,6 +230,7 @@ public class StoryManager {
             setCurrentStoryFlagAuto();
             return "ストーリーはおしまいだよ";
         } else {
+
             // 対象のストーリが終了（オーバー）していないか判定（storyList_1）
             if (storyWholeManagerArray[getCurrentStory() - 1] > this.number) {
                 // ストーリー内容を取得

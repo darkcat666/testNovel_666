@@ -41,6 +41,14 @@ import static android.content.ContentValues.TAG;
 public class MainActivity extends AppCompatActivity {
     private Util util = new Util(); // Utilクラスのインスタンス
     private SoundPool soundPool;
+    private SoundPool mSoundPoolVoice;
+    private int mSoundId;
+    private SoundPool mSoundPoolVoice1;
+    private int mSoundId1;
+    private SoundPool mSoundPoolVoice2;
+    private int mSoundId2;
+    private SoundPool mSoundPoolVoice3;
+    private int mSoundId3;
     private MediaPlayer mediaPlayer;
     private Button chooseButton_1;
     private Button chooseButton_2;
@@ -76,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         playFromMediaPlayer(R.raw.identity);
 
 //        startBattle();
+//        startWalk();
 
         popStoryText();
 
@@ -211,6 +220,17 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    // 戦闘処理
+    private void startWalk() {
+        Intent intent = new Intent(this, WalkActivity.class);
+        startActivity(intent);
+        // 音楽も多重起動しないようにする
+        stopFromMediaPlayer();
+
+        // このメインアクティビティを終了（多重起動しないようにする）
+        finish();
+    }
+
     // 間を持たせるためにシーンの合間合間に１秒待機する関数
     // （置き場所に注意！）（未設定）
     private void waitSecond() {
@@ -257,8 +277,17 @@ public class MainActivity extends AppCompatActivity {
                     changeView(tmpRValue);
                     // showTextがストーリーの末尾に存在するとき
                 } else if (((String) story.getStory(number)).indexOf("showText") != -1) {
-                    // 末尾のコマンド文字列をトリム
-                    showText(story.getStory(number).toString().replace("showText", ""));
+                    String tmpStrValue = ((String) story.getStory(number)).replace("showText", "");
+                    // 追加ボイスある場合の処理
+                    if (tmpStrValue.indexOf("vvv") != -1) {
+                        String tmpValue = tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length());
+                        int tmpRValue = Integer.parseInt(tmpValue);
+                        setVoice(tmpRValue);
+                        playVoice(mSoundPoolVoice, mSoundId);
+                    }
+
+//                    // 末尾のコマンド文字列をトリム
+//                    showText(story.getStory(number).toString().replace("showText", ""));
                     // ストーリーを最後まで見ないと読めないようにする
                 }
                 firstFlag = false;
@@ -294,11 +323,23 @@ public class MainActivity extends AppCompatActivity {
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
             } else if ((story.getOldStory().toString().replace("qqq", "").replace("changeView", "")
-                    .replace("showText", "").equals(textViewUp.getText().toString() + textViewDown.getText().toString()))) {
+                    .replace("showText", "").replace("vvv1", "").replace("vvv2", "").replace("vvv3", "")
+                    .equals(textViewUp.getText().toString() + textViewDown.getText().toString()))) {
+                String tmpStrValue = ((String) story.getStory(number)).replace("showText", "");
+                String tmpValue = "";
+                // 追加ボイスある場合の処理
+                if (tmpStrValue.indexOf("vvv") != -1) {
+                    tmpValue = tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length());
+                    int tmpRValue = Integer.parseInt(tmpValue);
+                    setVoice(tmpRValue);
+                    playVoice(mSoundPoolVoice, mSoundId);
+                    tmpStrValue = tmpStrValue.replace("vvv"+tmpValue, "");
+                }
+
                 // showTextがストーリーの末尾に存在するとき
                 if (((String) story.getStory(number)).indexOf("showText") != -1) {
                     // 末尾のコマンド文字列をトリム
-                    showText(story.getStory(number).toString().replace("showText", ""));
+                    showText(tmpStrValue.replace("showText", ""));
                 }
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
@@ -411,6 +452,18 @@ public class MainActivity extends AppCompatActivity {
         if (mediaPlayer == null) {
             playFromMediaPlayer(R.raw.onyourmark);
         }
+        // 予め音声データを読み込む
+        mSoundPoolVoice1 = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        mSoundId1 = mSoundPoolVoice1.load(getApplicationContext(), R.raw.maou_se_voice_dog01, 0);
+        mSoundPoolVoice2 = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        mSoundId2 = mSoundPoolVoice1.load(getApplicationContext(), R.raw.no_way, 0);
+        mSoundPoolVoice3 = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        mSoundId3 = mSoundPoolVoice1.load(getApplicationContext(), R.raw.nikoniko, 0);
+    }
+
+    // voice再生
+    public void playVoice(SoundPool soundPool, int mSoundId) {
+        soundPool.play(mSoundId, 1.0F, 1.0F, 0, 0, 1.0F);
     }
 
     // 背景画像の差し替え
@@ -624,6 +677,20 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    // Voiceの分岐
+    private void setVoice(int tmpRValue) {
+        if (tmpRValue == 1) {
+            this.mSoundPoolVoice = mSoundPoolVoice1;
+            this.mSoundId = mSoundId1;
+        } else if (tmpRValue == 2) {
+            this.mSoundPoolVoice = mSoundPoolVoice2;
+            this.mSoundId = mSoundId2;
+        } else if (tmpRValue == 3) {
+            this.mSoundPoolVoice = mSoundPoolVoice3;
+            this.mSoundId = mSoundId3;
         }
     }
 }
