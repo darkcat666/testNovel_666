@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private SoundPool mSoundPoolVoice3;
     private int mSoundId3;
     private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayerVoice1;
+    private MediaPlayer mediaPlayerVoice2;
+    private MediaPlayer mediaPlayerVoice3;
     private Button chooseButton_1;
     private Button chooseButton_2;
     private TextView textViewUp;
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         // ↓↓↓ストーリー仮置き１章（消さずに保存しておくこと！！）ーーーーーーー
 
-        changeView(R.drawable.black);
+        changeView(R.drawable.__yuusha);
 
         playFromMediaPlayer(R.raw.identity);
 
@@ -94,13 +97,66 @@ public class MainActivity extends AppCompatActivity {
     // 音楽ファイルの再生
     // rValueMusic : 再生する音楽のR値
     public void playFromMediaPlayer(int rValueMusic) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            stopFromMediaPlayer();
+        }
+        mediaPlayer = null;
+
         mediaPlayer = MediaPlayer.create(this, rValueMusic);
+
+        // 音量半減化
+        mediaPlayer.setVolume(0.5f, 0.5f);
 
         // ループ設定
         mediaPlayer.setLooping(true);
 
         // メディアプレイヤー再生
         mediaPlayer.start();
+    }
+
+    // Voice1ファイルの再生
+    // rValueMusic : 再生する音楽のR値
+    public void playFromMediaPlayerVoice1(int rValueMusic) {
+        mediaPlayerVoice1 = MediaPlayer.create(this, rValueMusic);
+
+        // 音量最大化
+        mediaPlayerVoice1.setVolume(1.0f, 1.0f);
+
+        // ループ設定
+        mediaPlayerVoice1.setLooping(false);
+
+        // メディアプレイヤー再生
+        mediaPlayerVoice1.start();
+    }
+
+    // Voice1ファイルの再生
+    // rValueMusic : 再生する音楽のR値
+    public void playFromMediaPlayerVoice2(int rValueMusic) {
+        mediaPlayerVoice2 = MediaPlayer.create(this, rValueMusic);
+
+        // 音量最大化
+        mediaPlayerVoice2.setVolume(1.0f, 1.0f);
+
+        // ループ設定
+        mediaPlayerVoice2.setLooping(false);
+
+        // メディアプレイヤー再生
+        mediaPlayerVoice2.start();
+    }
+
+    // Voice1ファイルの再生
+    // rValueMusic : 再生する音楽のR値
+    public void playFromMediaPlayerVoice3(int rValueMusic) {
+        mediaPlayerVoice3 = MediaPlayer.create(this, rValueMusic);
+
+        // 音量最大化
+        mediaPlayerVoice3.setVolume(1.0f, 1.0f);
+
+        // ループ設定
+        mediaPlayerVoice3.setLooping(false);
+
+        // メディアプレイヤー再生
+        mediaPlayerVoice3.start();
     }
 
     // 音楽ファイルの停止
@@ -122,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
 
             // 選択肢を消す（共通処理）
             viewDisappearButton();
+
+            // ストーリーをうまく遷移させる
+            storyChooser(chooseButton_1);
         });
 
         // ボタンに効果音を割り当てる
@@ -134,6 +193,9 @@ public class MainActivity extends AppCompatActivity {
 
             // 選択肢を消す（共通処理）
             viewDisappearButton();
+
+            // ストーリーをうまく遷移させる
+            storyChooser(chooseButton_2);
         });
 
         // 仮タッチ時にイベントが進むようにする
@@ -198,11 +260,14 @@ public class MainActivity extends AppCompatActivity {
         textViewUp = (TextView) findViewById(R.id.textView_upper);
         textViewDown = (TextView) findViewById(R.id.textView_downer);
 
+        // メッセージバーを可視化する
+        VisibleMessageBar();
+
         // 画面クリック時イベント設定
         setClickListeners();
 
-        // アイコン読み込み
-        iconImage = (ImageView) findViewById(R.id.view_icon);
+//        // アイコン読み込み
+//        iconImage = (ImageView) findViewById(R.id.view_icon);
 
         // 仮置き
         SoundManager soundManager = new SoundManager();
@@ -263,39 +328,55 @@ public class MainActivity extends AppCompatActivity {
 
     // popStory関数を実行する中身の関数
     // popStory関数を直すときはここを直す
-    private void execPopStoryText(){
+    private void execPopStoryText() {
         // 選択肢を選ぶまで凍らせるフラグがfalseの時にしか実行できない
-        if (story.getStoryFreezeFlg() == false) {
+        if (firstFlag && story.getStoryFreezeFlg() == false) {
+            // 次回のために声をstopする
+            stopVoices();
+            if (((String) story.getStory()).indexOf("showText") != -1) {
+                String tmpStrValue = ((String) story.getStory()).replace("showText", "");
+                // 追加ボイスある場合の処理
+                if (tmpStrValue.indexOf("vvv") != -1) {
+                    String tmpValue = tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length());
+                    int tmpRValue = Integer.parseInt(tmpValue);
+                    setMusicVoice1(tmpRValue);
+                    tmpStrValue = tmpStrValue.replace("vvv" + tmpValue, "");
+                }
 
-            if (firstFlag && story.getStory(number) instanceof String) {
-                // changeViewがストーリーの末尾に存在するとき（来ないと思う）
-                if (((String) story.getStory(number)).indexOf("changeView") != -1) {
+                // showTextがストーリーの末尾に存在するとき
+                if (((String) story.getStory()).indexOf("showText") != -1) {
                     // 末尾のコマンド文字列をトリム
-                    String tmpStrValue = ((String) story.getStory(number)).replace("changeView", "");
-                    int tmpRValue = Integer.parseInt(tmpStrValue);
-
-                    changeView(tmpRValue);
-                    // showTextがストーリーの末尾に存在するとき
-                } else if (((String) story.getStory(number)).indexOf("showText") != -1) {
-                    String tmpStrValue = ((String) story.getStory(number)).replace("showText", "");
-                    // 追加ボイスある場合の処理
-                    if (tmpStrValue.indexOf("vvv") != -1) {
-                        String tmpValue = tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length());
-                        int tmpRValue = Integer.parseInt(tmpValue);
-                        setVoice(tmpRValue);
-                        playVoice(mSoundPoolVoice, mSoundId);
-                    }
-
-//                    // 末尾のコマンド文字列をトリム
-//                    showText(story.getStory(number).toString().replace("showText", ""));
-                    // ストーリーを最後まで見ないと読めないようにする
+                    showText(tmpStrValue.replace("showText", ""));
                 }
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
-                // showTextを連続で実行しているときの連打制御用if文
-            } else if (((String) story.getStory(number)).indexOf("changeView") != -1) {
+                // 過去のメッセージを入れておく
+                story.setPastMessage(tmpStrValue);
+                showText(tmpStrValue);
+                // 自分で自分を呼ぶことで自動的に次に進む
+                execPopStoryText();
+                // ストーリーを最後まで見ないと読めないようにする
+            }
+            firstFlag = false;
+            story.setNumber(story.getNumber() + 1);
+        } else {
+            // showTextを連続で実行しているときの連打制御用if文
+            if (((String) story.getStory()).indexOf("changeView") != -1) {
+                // 追加でメッセージバーを表示・非表示する場合
+                String tmpStrValue = ((String) story.getStory());
+                String strValue = "";
+                if (tmpStrValue.indexOf("hide") != -1) {
+                    hideMessageBar();
+                    // 後処理
+                    tmpStrValue = tmpStrValue.replace("hide", "");
+                } else if (tmpStrValue.indexOf("view") != -1) {
+                    VisibleMessageBar();
+                    // 後処理
+                    tmpStrValue = tmpStrValue.replace("view", "");
+                }
+
                 // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("changeView", "");
+                tmpStrValue = tmpStrValue.replace("changeView", "");
                 int tmpRValue = Integer.parseInt(tmpStrValue);
 
                 changeView(tmpRValue);
@@ -304,51 +385,52 @@ public class MainActivity extends AppCompatActivity {
                 // 自分で自分を呼ぶことで自動的に次に進む
                 execPopStoryText();
                 // ViewChooseButtonがストーリーの末尾に存在するとき
-            } else if (((String) story.getStory(number)).indexOf("viewChooseButton") != -1) {
+            } else if (((String) story.getStory()).indexOf("viewChooseButton") != -1) {
                 // 引数によって分岐
-                if (((String) story.getStory(number)).indexOf("viewChooseButton(1)") != -1) {
+                if (((String) story.getStory()).indexOf("viewChooseButton(1)") != -1) {
                     viewChooseButton(1);
-                } else if (((String) story.getStory(number)).indexOf("viewChooseButton(2)") != -1) {
+                } else if (((String) story.getStory()).indexOf("viewChooseButton(2)") != -1) {
                     viewChooseButton(2);
                 }
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
                 // テキストをクリアする
-            } else if (((String) story.getStory(number)).indexOf("ClearText") != -1) {
+            } else if (((String) story.getStory()).indexOf("ClearText") != -1) {
                 // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("ClearText", "");
+                String tmpStrValue = ((String) story.getStory()).replace("ClearText", "");
 
                 // clearText()呼び出し
                 ClearText();
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
-            } else if ((story.getOldStory().toString().replace("qqq", "").replace("changeView", "")
-                    .replace("showText", "").replace("vvv1", "").replace("vvv2", "").replace("vvv3", "")
-                    .equals(textViewUp.getText().toString() + textViewDown.getText().toString()))) {
-                String tmpStrValue = ((String) story.getStory(number)).replace("showText", "");
+            } else if ((story.getStory().toString().indexOf("showText") != -1) &&
+                    story.getOldStory().toString().equals(textViewUp.getText().toString() + textViewDown.getText().toString())) {
+                String tmpStrValue = ((String) story.getStory()).replace("showText", "");
                 String tmpValue = "";
                 // 追加ボイスある場合の処理
                 if (tmpStrValue.indexOf("vvv") != -1) {
                     tmpValue = tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length());
                     int tmpRValue = Integer.parseInt(tmpValue);
-                    setVoice(tmpRValue);
-                    playVoice(mSoundPoolVoice, mSoundId);
-                    tmpStrValue = tmpStrValue.replace("vvv"+tmpValue, "");
+                    setMusicVoice1(tmpRValue);
+                    tmpStrValue = tmpStrValue.replace("vvv" + tmpValue, "");
                 }
 
                 // showTextがストーリーの末尾に存在するとき
-                if (((String) story.getStory(number)).indexOf("showText") != -1) {
+                if (((String) story.getStory()).indexOf("showText") != -1) {
                     // 末尾のコマンド文字列をトリム
                     showText(tmpStrValue.replace("showText", ""));
                 }
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
+                // 過去のメッセージを入れておく
+                story.setPastMessage(tmpStrValue);
+                showText(tmpStrValue);
                 // 自分で自分を呼ぶことで自動的に次に進む
                 execPopStoryText();
                 // setChooseTextがストーリーの末尾に存在するとき
-            } else if (((String) story.getStory(number)).indexOf("setChooseText") != -1) {
+            } else if (((String) story.getStory()).indexOf("setChooseText") != -1) {
                 // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("setChooseText", "");
+                String tmpStrValue = ((String) story.getStory()).replace("setChooseText", "");
 
                 // それぞれの引数を「qqq」またぎで分割して関数に代入
                 String firstStr1 = tmpStrValue.substring(0, tmpStrValue.indexOf("qqq"));
@@ -361,12 +443,9 @@ public class MainActivity extends AppCompatActivity {
                 // 自分で自分を呼ぶことで自動的に次に進む
                 execPopStoryText();
                 // 音楽を変更するとき「playFromMediaPlayer」
-            } else if (((String) story.getStory(number)).indexOf("playFromMediaPlayer") != -1) {
-                // 音楽を消してから別のを鳴らす
-                stopFromMediaPlayer();
-
+            } else if (((String) story.getStory()).indexOf("playFromMediaPlayer") != -1) {
                 // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("playFromMediaPlayer", "");
+                String tmpStrValue = ((String) story.getStory()).replace("playFromMediaPlayer", "");
                 // R値に変換
                 int playTarget_R = Integer.parseInt(tmpStrValue);
 
@@ -377,17 +456,17 @@ public class MainActivity extends AppCompatActivity {
                 // 自分で自分を呼ぶことで自動的に次に進む
                 execPopStoryText();
                 // テキストをクリアする
-            } else if (((String) story.getStory(number)).indexOf("ClearText") != -1) {
+            } else if (((String) story.getStory()).indexOf("ClearText") != -1) {
                 // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("ClearText", "");
+                String tmpStrValue = ((String) story.getStory()).replace("ClearText", "");
 
                 // clearText()呼び出し
                 ClearText();
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
-            } else if (((String) story.getStory(number)).indexOf("sleeping") != -1) {
+            } else if (((String) story.getStory()).indexOf("sleeping") != -1) {
                 // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory(number)).replace("sleeping", "");
+                String tmpStrValue = ((String) story.getStory()).replace("sleeping", "");
 
                 // sleeping()呼び出し
                 sleeping();
@@ -396,24 +475,19 @@ public class MainActivity extends AppCompatActivity {
                 // 自分で自分を呼ぶことで自動的に次に進む
                 execPopStoryText();
                 // １命令待機させる「STOP」（飛ばさないようにしたいときに使う）
-            } else if (((String) story.getStory(number)).indexOf("STOP") != -1) {
+            } else if (((String) story.getStory()).indexOf("STOP") != -1) {
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
             }
         }
-        Log.e("tag", story.getStory(number - 2).toString().replace("qqq", "").replace("changeView", "")
-                .replace("showText", ""));
-        Log.e("tag", textViewUp.getText().toString() + textViewDown.getText().toString());
     }
+//        Log.e("tag", story.getStory().toString().replace("qqq", "").replace("changeView", "")
+//                .replace("showText", ""));
+//        Log.e("tag", textViewUp.getText().toString() + textViewDown.getText().toString());
 
 
     // 画面タッチしたらストーリーをポップする
     private void popStoryText() {
-        // ストーリー最後まで行ったら終了させるガードのif文
-        if (story.getStorySize() == number) {
-            Log.v("tag", "ストーリーはおしまいだよ");
-            System.exit(999);
-        }
         // 現在のnumberをストーリーマネージャーに聞きに行く
         number = story.getNumber();
 
@@ -452,13 +526,6 @@ public class MainActivity extends AppCompatActivity {
         if (mediaPlayer == null) {
             playFromMediaPlayer(R.raw.onyourmark);
         }
-        // 予め音声データを読み込む
-        mSoundPoolVoice1 = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        mSoundId1 = mSoundPoolVoice1.load(getApplicationContext(), R.raw.maou_se_voice_dog01, 0);
-        mSoundPoolVoice2 = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        mSoundId2 = mSoundPoolVoice1.load(getApplicationContext(), R.raw.no_way, 0);
-        mSoundPoolVoice3 = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        mSoundId3 = mSoundPoolVoice1.load(getApplicationContext(), R.raw.nikoniko, 0);
     }
 
     // voice再生
@@ -477,9 +544,25 @@ public class MainActivity extends AppCompatActivity {
     // アイコン画像の差し替え
     // rValueView : 差し替えるアイコン画像のR値
     private void changeIconView(int rValueView) {
-        ImageView myImage = findViewById(R.id.view_icon);
-        Drawable myDrawable = getResources().getDrawable(rValueView);
-        myImage.setImageDrawable(myDrawable);
+//        ImageView myImage = findViewById(R.id.view_icon);
+//        Drawable myDrawable = getResources().getDrawable(rValueView);
+//        myImage.setImageDrawable(myDrawable);
+    }
+
+    // 画像全体を見せるためにメッセージバーを隠す
+    private void hideMessageBar() {
+        TextView textViewUpper = findViewById(R.id.textView_upper);
+        TextView textViewDowner = findViewById(R.id.textView_downer);
+        textViewUpper.setVisibility(View.INVISIBLE);
+        textViewDowner.setVisibility(View.INVISIBLE);
+    }
+
+    // 画像全体を見せるためにメッセージバーを再表示する
+    private void VisibleMessageBar() {
+        TextView textViewUpper = findViewById(R.id.textView_upper);
+        TextView textViewDowner = findViewById(R.id.textView_downer);
+        textViewUpper.setVisibility(View.VISIBLE);
+        textViewDowner.setVisibility(View.VISIBLE);
     }
 
     // 選択ボタンを表示させる
@@ -509,7 +592,7 @@ public class MainActivity extends AppCompatActivity {
     // str1：上の選択テキスト
     // str2：下の選択テキスト
     private void setChooseText(String str1, String str2) {
-        // クリア
+        // セットテキスト
         chooseButton_1.setText(str1);
         chooseButton_2.setText(str2);
     }
@@ -680,17 +763,92 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Voiceの分岐
-    private void setVoice(int tmpRValue) {
-        if (tmpRValue == 1) {
-            this.mSoundPoolVoice = mSoundPoolVoice1;
-            this.mSoundId = mSoundId1;
-        } else if (tmpRValue == 2) {
-            this.mSoundPoolVoice = mSoundPoolVoice2;
-            this.mSoundId = mSoundId2;
-        } else if (tmpRValue == 3) {
-            this.mSoundPoolVoice = mSoundPoolVoice3;
-            this.mSoundId = mSoundId3;
+    // Voice1の分岐
+    private void setMusicVoice1(int value) {
+        if (value == 0) {
+            playFromMediaPlayerVoice1(R.raw.h0);
+        } else if (value == 1) {
+            playFromMediaPlayerVoice1(R.raw.h1);
+        } else if (value == 2) {
+            playFromMediaPlayerVoice1(R.raw.h2);
+        } else if (value == 3) {
+            playFromMediaPlayerVoice1(R.raw.h3);
+        } else if (value == 4) {
+            playFromMediaPlayerVoice1(R.raw.h4);
+        } else if (value == 5) {
+            playFromMediaPlayerVoice1(R.raw.h5);
+        } else if (value == 6) {
+            playFromMediaPlayerVoice1(R.raw.h6_1);
+        } else if (value == 7) {
+           playFromMediaPlayerVoice1(R.raw.h7_1);
+        }
+    }
+
+    // Voice2の分岐
+    private void setMusicVoice2(int value) {
+        if (value == 1) {
+            playFromMediaPlayerVoice1(R.raw.hahaha_1);
+        } else if (value == 2) {
+            playFromMediaPlayerVoice1(R.raw.maroni_sama);
+        } else if (value == 3) {
+            playFromMediaPlayerVoice1(R.raw.pleasestop_maroni_sama);
+        }
+    }
+
+    // Voice3の分岐
+    private void setMusicVoice3(int value) {
+        if (value == 1) {
+            playFromMediaPlayerVoice1(R.raw.hahaha_1);
+        } else if (value == 2) {
+            playFromMediaPlayerVoice1(R.raw.maroni_sama);
+        } else if (value == 3) {
+            playFromMediaPlayerVoice1(R.raw.pleasestop_maroni_sama);
+        }
+    }
+
+    private void stopVoices() {
+        if (mediaPlayerVoice1 != null) {
+            mediaPlayerVoice1 = null;
+        }
+        if (mediaPlayerVoice2 != null) {
+            mediaPlayerVoice2 = null;
+        }
+        if (mediaPlayerVoice3 != null) {
+            mediaPlayerVoice3 = null;
+        }
+    }
+
+    // ストーリーをうまく遷移させる
+    private void storyChooser(Button clickedButton) {
+
+        // ボタン１（上）の場合
+        if (clickedButton == findViewById(R.id.button1)) {
+            // ストーリーを変更する前にストーリーの現在位置を初期化
+            story.setNumber(0);
+//            firstFlag = true;
+
+            // さらにストーリフラグによって分岐
+            if (story.getCurrentStory() == 1) {
+                story.setStoryFlagNumber(2); // ゲームオーバー
+            } else if (story.getCurrentStory() == 3) {
+                story.setStoryFlagNumber(2); // ゲームオーバー
+            } else if (story.getCurrentStory() == 4) {
+                story.setStoryFlagNumber(5); // あの世まで行く王様
+            }
+            // ボタン２（下）の場合
+        } else if (clickedButton == findViewById(R.id.button2)) {
+            // ストーリーを変更する前にストーリーの現在位置を初期化
+            story.setNumber(0);
+//            firstFlag = true;
+
+            // さらにストーリフラグによって分岐
+            if (story.getCurrentStory() == 1) {
+                story.setStoryFlagNumber(3); // 3章突入
+            } else if (story.getCurrentStory() == 3) {
+                story.setStoryFlagNumber(4); // 4章突入
+            } else if (story.getCurrentStory() == 4) {
+
+            }
         }
     }
 }

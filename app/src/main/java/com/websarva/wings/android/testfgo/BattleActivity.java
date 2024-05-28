@@ -132,9 +132,7 @@ public class BattleActivity extends AppCompatActivity {
     // アイコン画像の差し替え
     // rValueView : 差し替えるアイコン画像のR値
     private void changeIconView(int rValueView) {
-        ImageView myImage= (ImageView) findViewById(R.id.view_icon);
-        Drawable myDrawable = getResources().getDrawable(rValueView);
-        myImage.setImageDrawable(myDrawable);
+
     }
 
     // 選択ボタンを表示させる
