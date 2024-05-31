@@ -1,0 +1,3 @@
+rootProject.name = "TestFGO"
+include ':app'
+include ':openGL_ES_20_SampleApp3D'

@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/testNovel_666.iml" filepath="$PROJECT_DIR$/.idea/testNovel_666.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TestFGO.iml" filepath="$PROJECT_DIR$/.idea/modules/TestFGO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TestFGO.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TestFGO.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TestFGO.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TestFGO.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TestFGO.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TestFGO.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TestFGO.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TestFGO.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.iml" filepath="$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/openGL_ES_20_SampleApp3D/TestFGO.openGL_ES_20_SampleApp3D.unitTest.iml" />
     </modules>
   </component>
 </project>
