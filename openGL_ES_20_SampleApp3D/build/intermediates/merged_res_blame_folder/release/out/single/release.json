@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\build\\intermediates\\res\\merged\\release\\layout_view_menu_title.xml.flat",
+        "source": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\src\\main\\res\\layout\\view_menu_title.xml"
+    },
+    {
+        "merged": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\build\\intermediates\\res\\merged\\release\\xml_livewallpaper.xml.flat",
+        "source": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\src\\main\\res\\xml\\livewallpaper.xml"
+    },
+    {
+        "merged": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\build\\intermediates\\res\\merged\\release\\drawable_ic_launcher.png.flat",
+        "source": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\src\\main\\res\\drawable\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\build\\intermediates\\res\\merged\\release\\layout_view_menu_header.xml.flat",
+        "source": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\src\\main\\res\\layout\\view_menu_header.xml"
+    },
+    {
+        "merged": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\build\\intermediates\\res\\merged\\release\\layout_activity_menu.xml.flat",
+        "source": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO\\openGL_ES_20_SampleApp3D\\src\\main\\res\\layout\\activity_menu.xml"
+    }
+]

@@ -1,0 +1,8 @@
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-pngs-0 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\build\generated\res\pngs\debug
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-resValues-1 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\build\generated\res\resValues\debug
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-rs-2 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\build\generated\res\rs\debug
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-mergeDebugResources-3 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-mergeDebugResources-4 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-merged_res-5 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\build\intermediates\merged_res\debug
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-debug-6 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\debug\res
+com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-main-7 C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\res

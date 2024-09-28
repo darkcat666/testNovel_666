@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">マルチプラットホームのためのOpenGL ES入門 応用編</string>
+    <string name="livewallpaper_description">OpenGL ES 2.0をライブ壁紙で利用します</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        
+    </style>
+</resources>

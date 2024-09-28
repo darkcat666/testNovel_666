@@ -1,0 +1,97 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.eaglesakura.gles20_3d"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+7-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:6:5-8:41
+8        android:minSdkVersion="8"
+8-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:7:9-34
+9        android:targetSdkVersion="19" />
+9-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:8:9-38
+10
+11    <!-- プロファイラー接続のためにINTERNETパーミッションを付与しておく -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:11:5-67
+12-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:11:22-64
+13
+14    <!-- システムレイヤーの利用権限 -->
+15    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+15-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:14:5-78
+15-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:14:22-75
+16
+17    <application
+17-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:16:5-56:19
+18        android:allowBackup="true"
+18-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:17:9-35
+19        android:debuggable="true"
+20        android:icon="@drawable/ic_launcher"
+20-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:18:9-45
+21        android:label="@string/app_name"
+21-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:19:9-41
+22        android:theme="@style/AppTheme" >
+22-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:20:9-40
+23        <activity
+23-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:21:9-30:20
+24            android:name="com.eaglesakura.gles20.MenuActivity"
+24-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:22:13-63
+25            android:background="@android:style/Theme.Light"
+25-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:23:13-60
+26            android:label="@string/app_name" >
+26-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:24:13-45
+27            <intent-filter>
+27-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:25:13-29:29
+28                <action android:name="android.intent.action.MAIN" />
+28-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:26:17-69
+28-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:26:25-66
+29
+30                <category android:name="android.intent.category.LAUNCHER" />
+30-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:28:17-77
+30-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:28:27-74
+31            </intent-filter>
+32        </activity>
+33        <activity
+33-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:31:9-35:20
+34            android:name="com.eaglesakura.gles20.RenderingActivity"
+34-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:32:13-68
+35            android:configChanges="orientation|screenSize"
+35-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:33:13-59
+36            android:hardwareAccelerated="true" >
+36-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:34:13-47
+37        </activity>
+38
+39        <!-- System Layer -->
+40        <service android:name="com.eaglesakura.gles20.service.GLViewService" >
+40-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:38:9-39:19
+40-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:38:18-77
+41        </service>
+42
+43        <!-- LiveWallpaper -->
+44        <service
+44-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:42:9-55:19
+45            android:name="com.eaglesakura.gles20.wallpaper.GLWallpaperService"
+45-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:43:13-79
+46            android:label="@string/app_name"
+46-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:44:13-45
+47            android:permission="android.permission.BIND_WALLPAPER" >
+47-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:45:13-67
+48            <intent-filter>
+48-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:46:13-49:29
+49                <action android:name="android.service.wallpaper.WallpaperService" >
+49-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:47:17-48:26
+49-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:47:25-82
+50                </action>
+51            </intent-filter>
+52
+53            <meta-data
+53-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:51:13-54:25
+54                android:name="android.service.wallpaper"
+54-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:52:17-57
+55                android:resource="@xml/livewallpaper" >
+55-->C:\Users\holyc\AndroidStudioProjects\TestFGO_testNovel_GitHub\openGL_ES_20_SampleApp3D\src\main\AndroidManifest.xml:53:17-54
+56            </meta-data>
+57        </service>
+58    </application>
+59
+60</manifest>

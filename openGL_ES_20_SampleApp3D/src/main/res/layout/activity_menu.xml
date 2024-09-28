@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MenuActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <CheckBox
+            android:id="@+id/use_textureview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextureViewを使用(Android 4.0以上)" />
+
+        <CheckBox
+            android:id="@+id/use_vsync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="垂直同期を行う(Android 4.1以上)" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/systemlayer_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Serviceから利用" />
+
+        <Button
+            android:id="@+id/systemlayer_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Serviceを停止" />
+    </LinearLayout>
+
+</LinearLayout>

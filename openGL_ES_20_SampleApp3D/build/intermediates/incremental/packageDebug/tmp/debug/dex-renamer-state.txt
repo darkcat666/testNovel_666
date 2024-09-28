@@ -1,0 +1,4 @@
+#Mon May 13 21:48:30 JST 2024
+base.0=C\:\\Users\\holyc\\AndroidStudioProjects\\TestFGO_testNovel_GitHub\\openGL_ES_20_SampleApp3D\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

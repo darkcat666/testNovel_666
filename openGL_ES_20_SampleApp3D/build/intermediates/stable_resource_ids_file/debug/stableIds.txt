@@ -1,0 +1,15 @@
+com.eaglesakura.gles20_3d:xml/livewallpaper = 0x7f060000
+com.eaglesakura.gles20_3d:style/AppTheme = 0x7f050001
+com.eaglesakura.gles20_3d:style/AppBaseTheme = 0x7f050000
+com.eaglesakura.gles20_3d:string/livewallpaper_description = 0x7f040001
+com.eaglesakura.gles20_3d:id/systemlayer_stop = 0x7f020002
+com.eaglesakura.gles20_3d:layout/view_menu_title = 0x7f030002
+com.eaglesakura.gles20_3d:id/use_textureview = 0x7f020004
+com.eaglesakura.gles20_3d:string/app_name = 0x7f040000
+com.eaglesakura.gles20_3d:layout/view_menu_header = 0x7f030001
+com.eaglesakura.gles20_3d:id/use_vsync = 0x7f020005
+com.eaglesakura.gles20_3d:id/text = 0x7f020003
+com.eaglesakura.gles20_3d:id/systemlayer_start = 0x7f020001
+com.eaglesakura.gles20_3d:layout/activity_menu = 0x7f030000
+com.eaglesakura.gles20_3d:id/list = 0x7f020000
+com.eaglesakura.gles20_3d:drawable/ic_launcher = 0x7f010000

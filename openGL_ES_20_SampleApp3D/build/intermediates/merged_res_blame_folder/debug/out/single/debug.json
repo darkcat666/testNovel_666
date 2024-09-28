@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-merged_res-5:/layout_activity_menu.xml.flat",
+        "source": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-main-7:/layout/activity_menu.xml"
+    },
+    {
+        "merged": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-merged_res-5:/layout_view_menu_title.xml.flat",
+        "source": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-main-7:/layout/view_menu_title.xml"
+    },
+    {
+        "merged": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-merged_res-5:/drawable_ic_launcher.png.flat",
+        "source": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-main-7:/drawable/ic_launcher.png"
+    },
+    {
+        "merged": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-merged_res-5:/xml_livewallpaper.xml.flat",
+        "source": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-main-7:/xml/livewallpaper.xml"
+    },
+    {
+        "merged": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-merged_res-5:/layout_view_menu_header.xml.flat",
+        "source": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-main-7:/layout/view_menu_header.xml"
+    }
+]

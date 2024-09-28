@@ -1,0 +1,45 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.eaglesakura.gles20_3d.openGL_ES_20_SampleApp3D-mergeDebugResources-3:/values/values.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO_testNovel_GitHub\\openGL_ES_20_SampleApp3D\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "6,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "186,510",
+                        "endLines": "12,17",
+                        "endColumns": "12,12",
+                        "endOffsets": "472,665"
+                    },
+                    "to": {
+                        "startLines": "4,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "202,285",
+                        "endLines": "6,9",
+                        "endColumns": "12,12",
+                        "endOffsets": "280,352"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\holyc\\AndroidStudioProjects\\TestFGO_testNovel_GitHub\\openGL_ES_20_SampleApp3D\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "56,123",
+                        "endColumns": "66,79",
+                        "endOffsets": "118,198"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,122",
+                        "endColumns": "66,79",
+                        "endOffsets": "117,197"
+                    }
+                }
+            ]
+        }
+    ]
+}

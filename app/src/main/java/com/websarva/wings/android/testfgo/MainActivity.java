@@ -2,6 +2,7 @@ package com.websarva.wings.android.testfgo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import org.w3c.dom.Text;
 
@@ -82,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
 
         // ↓↓↓ストーリー仮置き１章（消さずに保存しておくこと！！）ーーーーーーー
 
-        changeView(R.drawable.__yuusha);
+        changeView(R.drawable.nock_10);
 
-        playFromMediaPlayer(R.raw.identity);
+//        playFromMediaPlayer(R.raw.identity);
 
 //        startBattle();
 //        startWalk();
@@ -127,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
 
         // メディアプレイヤー再生
         mediaPlayerVoice1.start();
+
+        // 音楽をリリースする
+        mediaPlayerVoice1.setOnCompletionListener(mediaPlayer -> mediaPlayer.release());
     }
 
     // Voice1ファイルの再生
@@ -142,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
         // メディアプレイヤー再生
         mediaPlayerVoice2.start();
+
+        // 音楽をリリースする
+        mediaPlayerVoice2.setOnCompletionListener(mediaPlayer -> mediaPlayer.release());
     }
 
     // Voice1ファイルの再生
@@ -157,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
 
         // メディアプレイヤー再生
         mediaPlayerVoice3.start();
+
+        // 音楽をリリースする
+        mediaPlayerVoice3.setOnCompletionListener(mediaPlayer -> mediaPlayer.release());
     }
 
     // 音楽ファイルの停止
@@ -330,36 +341,40 @@ public class MainActivity extends AppCompatActivity {
     // popStory関数を直すときはここを直す
     private void execPopStoryText() {
         // 選択肢を選ぶまで凍らせるフラグがfalseの時にしか実行できない
-        if (firstFlag && story.getStoryFreezeFlg() == false) {
+        if ((firstFlag && story.getStoryFreezeFlg() == false)) {
             // 次回のために声をstopする
             stopVoices();
             if (((String) story.getStory()).indexOf("showText") != -1) {
                 String tmpStrValue = ((String) story.getStory()).replace("showText", "");
+                String colorValue = "";
+                String tmpRValue = "";
                 // 追加ボイスある場合の処理
                 if (tmpStrValue.indexOf("vvv") != -1) {
-                    String tmpValue = tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length());
-                    int tmpRValue = Integer.parseInt(tmpValue);
-                    setMusicVoice1(tmpRValue);
-                    tmpStrValue = tmpStrValue.replace("vvv" + tmpValue, "");
+                    colorValue = tmpStrValue.substring(tmpStrValue.indexOf("setTextColor") + "setTextColor".length());
+                    tmpRValue = tmpStrValue.replace(tmpStrValue.substring(tmpStrValue.indexOf("setTextColor")), "");
+                    int voiceNum = Integer.parseInt(tmpRValue.substring(tmpRValue.indexOf("vvv") + "vvv".length()));
+                    setMusicVoice2(voiceNum);
+                    tmpRValue = tmpRValue.replace(("vvv" + voiceNum), "");
                 }
 
-                // showTextがストーリーの末尾に存在するとき
-                if (((String) story.getStory()).indexOf("showText") != -1) {
-                    // 末尾のコマンド文字列をトリム
-                    showText(tmpStrValue.replace("showText", ""));
+                // 色セットする場合の処理
+                if (tmpStrValue.indexOf("setTextColor") != -1) {
+                    setTextColor(colorValue);
+                } else if (tmpStrValue.indexOf("setTextColorUp") != -1) {
+                    setTextColorUp(colorValue);
+                } else if (tmpStrValue.indexOf("setTextColorDown") != -1) {
+                    setTextColorDown(colorValue);
                 }
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
                 // 過去のメッセージを入れておく
-                story.setPastMessage(tmpStrValue);
-                showText(tmpStrValue);
+                story.setPastMessage(tmpRValue);
+                showText(tmpRValue);
                 // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
+//                execPopStoryText();
                 // ストーリーを最後まで見ないと読めないようにする
             }
-            firstFlag = false;
-            story.setNumber(story.getNumber() + 1);
-        } else {
+        } else if (story.getOldStory().toString().equals(textViewUp.getText().toString() + textViewDown.getText().toString())) {
             // showTextを連続で実行しているときの連打制御用if文
             if (((String) story.getStory()).indexOf("changeView") != -1) {
                 // 追加でメッセージバーを表示・非表示する場合
@@ -386,6 +401,16 @@ public class MainActivity extends AppCompatActivity {
                 execPopStoryText();
                 // ViewChooseButtonがストーリーの末尾に存在するとき
             } else if (((String) story.getStory()).indexOf("viewChooseButton") != -1) {
+                // 末尾のコマンド文字列をトリム
+                String tmpStrValue = ((String) story.getStory()).replace("setChooseText", "");
+
+                // それぞれの引数を「qqq」またぎで分割して関数に代入
+                String firstStr1 = tmpStrValue.substring(0, tmpStrValue.indexOf("qqq"));
+                String firstStr2 = tmpStrValue.substring(tmpStrValue.indexOf("qqq") + 3);
+                firstStr2 = firstStr2.replace(firstStr2.substring(firstStr2.indexOf("viewChooseButton")), "");
+
+                // setChooseText()呼び出し
+                setChooseText(firstStr1, firstStr2);
                 // 引数によって分岐
                 if (((String) story.getStory()).indexOf("viewChooseButton(1)") != -1) {
                     viewChooseButton(1);
@@ -394,7 +419,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
-                // テキストをクリアする
             } else if (((String) story.getStory()).indexOf("ClearText") != -1) {
                 // 末尾のコマンド文字列をトリム
                 String tmpStrValue = ((String) story.getStory()).replace("ClearText", "");
@@ -406,19 +430,25 @@ public class MainActivity extends AppCompatActivity {
             } else if ((story.getStory().toString().indexOf("showText") != -1) &&
                     story.getOldStory().toString().equals(textViewUp.getText().toString() + textViewDown.getText().toString())) {
                 String tmpStrValue = ((String) story.getStory()).replace("showText", "");
-                String tmpValue = "";
+                String colorValue = "";
+                // テキスト色変更ある場合の処理
+                if (tmpStrValue.indexOf("setTextColor") != -1) {
+                    colorValue = tmpStrValue.substring(tmpStrValue.indexOf("setTextColor") + "setTextColor".length());
+                    tmpStrValue = tmpStrValue.replace(tmpStrValue.substring(tmpStrValue.indexOf("setTextColor")), "");
+                }
                 // 追加ボイスある場合の処理
                 if (tmpStrValue.indexOf("vvv") != -1) {
-                    tmpValue = tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length());
-                    int tmpRValue = Integer.parseInt(tmpValue);
-                    setMusicVoice1(tmpRValue);
-                    tmpStrValue = tmpStrValue.replace("vvv" + tmpValue, "");
+                    int voiceNum = Integer.parseInt(tmpStrValue.substring(tmpStrValue.indexOf("vvv") + "vvv".length()));
+                    setMusicVoice2(voiceNum);
+                    tmpStrValue = tmpStrValue.replace(("vvv" + voiceNum), "");
                 }
-
-                // showTextがストーリーの末尾に存在するとき
-                if (((String) story.getStory()).indexOf("showText") != -1) {
-                    // 末尾のコマンド文字列をトリム
-                    showText(tmpStrValue.replace("showText", ""));
+                // 色セットする場合の処理
+                if (tmpStrValue.indexOf("setTextColor") != -1) {
+                    setTextColor(colorValue);
+                } else if (tmpStrValue.indexOf("setTextColorUp") != -1) {
+                    setTextColorUp(colorValue);
+                } else if (tmpStrValue.indexOf("setTextColorDown") != -1) {
+                    setTextColorDown(colorValue);
                 }
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
@@ -426,23 +456,8 @@ public class MainActivity extends AppCompatActivity {
                 story.setPastMessage(tmpStrValue);
                 showText(tmpStrValue);
                 // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
-                // setChooseTextがストーリーの末尾に存在するとき
-            } else if (((String) story.getStory()).indexOf("setChooseText") != -1) {
-                // 末尾のコマンド文字列をトリム
-                String tmpStrValue = ((String) story.getStory()).replace("setChooseText", "");
-
-                // それぞれの引数を「qqq」またぎで分割して関数に代入
-                String firstStr1 = tmpStrValue.substring(0, tmpStrValue.indexOf("qqq"));
-                String firstStr2 = tmpStrValue.substring(tmpStrValue.indexOf("qqq") + 3);
-
-                // setChooseText()呼び出し
-                setChooseText(firstStr1, firstStr2);
-                firstFlag = false;
-                story.setNumber(story.getNumber() + 1);
-                // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
-                // 音楽を変更するとき「playFromMediaPlayer」
+//                execPopStoryText();
+                // ストーリーを最後まで見ないと読めないようにする
             } else if (((String) story.getStory()).indexOf("playFromMediaPlayer") != -1) {
                 // 末尾のコマンド文字列をトリム
                 String tmpStrValue = ((String) story.getStory()).replace("playFromMediaPlayer", "");
@@ -473,7 +488,7 @@ public class MainActivity extends AppCompatActivity {
                 firstFlag = false;
                 story.setNumber(story.getNumber() + 1);
                 // 自分で自分を呼ぶことで自動的に次に進む
-                execPopStoryText();
+//                execPopStoryText();
                 // １命令待機させる「STOP」（飛ばさないようにしたいときに使う）
             } else if (((String) story.getStory()).indexOf("STOP") != -1) {
                 firstFlag = false;
@@ -763,7 +778,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Voice1の分岐
+    // Voice1の分岐（１：野獣先輩）
     private void setMusicVoice1(int value) {
         if (value == 0) {
             playFromMediaPlayerVoice1(R.raw.h0);
@@ -784,14 +799,128 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Voice2の分岐
+    // Voice2の分岐（２；ノック）
     private void setMusicVoice2(int value) {
-        if (value == 1) {
-            playFromMediaPlayerVoice1(R.raw.hahaha_1);
-        } else if (value == 2) {
-            playFromMediaPlayerVoice1(R.raw.maroni_sama);
-        } else if (value == 3) {
-            playFromMediaPlayerVoice1(R.raw.pleasestop_maroni_sama);
+        if (value == 10) {
+            playFromMediaPlayerVoice1(R.raw.h10);
+        } else if (value == 11) {
+            playFromMediaPlayerVoice1(R.raw.h11);
+        } else if (value == 12) {
+            playFromMediaPlayerVoice1(R.raw.h12);
+        } else if (value == 13) {
+            playFromMediaPlayerVoice1(R.raw.h13);
+        } else if (value == 14) {
+            playFromMediaPlayerVoice1(R.raw.h14);
+        } else if (value == 15) {
+            playFromMediaPlayerVoice1(R.raw.h15);
+        } else if (value == 16) {
+            playFromMediaPlayerVoice1(R.raw.h16);
+        } else if (value == 17) {
+            playFromMediaPlayerVoice1(R.raw.h17);
+        } else if (value == 18) {
+            playFromMediaPlayerVoice1(R.raw.h18);
+        } else if (value == 19) {
+            playFromMediaPlayerVoice1(R.raw.h19);
+        } else if (value == 20) {
+            playFromMediaPlayerVoice1(R.raw.h20);
+        } else if (value == 21) {
+            playFromMediaPlayerVoice1(R.raw.h21);
+        } else if (value == 22) {
+            playFromMediaPlayerVoice1(R.raw.h22);
+        } else if (value == 23) {
+            playFromMediaPlayerVoice1(R.raw.h23);
+        } else if (value == 24) {
+            playFromMediaPlayerVoice1(R.raw.h24);
+        } else if (value == 25) {
+            playFromMediaPlayerVoice1(R.raw.h25);
+        } else if (value == 26) {
+            playFromMediaPlayerVoice1(R.raw.h26);
+        } else if (value == 27) {
+            playFromMediaPlayerVoice1(R.raw.h27);
+        } else if (value == 28) {
+            playFromMediaPlayerVoice1(R.raw.h28);
+        } else if (value == 29) {
+            playFromMediaPlayerVoice1(R.raw.h29);
+        } else if (value == 30) {
+            playFromMediaPlayerVoice1(R.raw.h30);
+        } else if (value == 31) {
+            playFromMediaPlayerVoice1(R.raw.h31);
+        } else if (value == 32) {
+            playFromMediaPlayerVoice1(R.raw.h32);
+        } else if (value == 33) {
+            playFromMediaPlayerVoice1(R.raw.h33);
+        } else if (value == 34) {
+            playFromMediaPlayerVoice1(R.raw.h34);
+        } else if (value == 35) {
+            playFromMediaPlayerVoice1(R.raw.h35);
+        } else if (value == 36) {
+            playFromMediaPlayerVoice1(R.raw.h36);
+        } else if (value == 37) {
+            playFromMediaPlayerVoice1(R.raw.h37);
+        } else if (value == 38) {
+            playFromMediaPlayerVoice1(R.raw.h38);
+        } else if (value == 39) {
+            playFromMediaPlayerVoice1(R.raw.h39);
+        } else if (value == 40) {
+            playFromMediaPlayerVoice1(R.raw.h40);
+        } else if (value == 41) {
+            playFromMediaPlayerVoice1(R.raw.h41);
+        } else if (value == 42) {
+            playFromMediaPlayerVoice1(R.raw.h42);
+        } else if (value == 43) {
+            playFromMediaPlayerVoice1(R.raw.h43);
+        } else if (value == 44) {
+            playFromMediaPlayerVoice1(R.raw.h44);
+        } else if (value == 45) {
+            playFromMediaPlayerVoice1(R.raw.h45);
+        } else if (value == 46) {
+            playFromMediaPlayerVoice1(R.raw.h46);
+        } else if (value == 47) {
+            playFromMediaPlayerVoice1(R.raw.h47);
+        } else if (value == 48) {
+            playFromMediaPlayerVoice1(R.raw.h48);
+        } else if (value == 49) {
+            playFromMediaPlayerVoice1(R.raw.h49);
+        } else if (value == 50) {
+            playFromMediaPlayerVoice1(R.raw.h50);
+        } else if (value == 51) {
+            playFromMediaPlayerVoice1(R.raw.h51);
+        } else if (value == 52) {
+            playFromMediaPlayerVoice1(R.raw.h52);
+        } else if (value == 53) {
+            playFromMediaPlayerVoice1(R.raw.h53);
+        } else if (value == 54) {
+            playFromMediaPlayerVoice1(R.raw.h54);
+        } else if (value == 55) {
+            playFromMediaPlayerVoice1(R.raw.h55);
+        } else if (value == 56) {
+            playFromMediaPlayerVoice1(R.raw.h56);
+        } else if (value == 57) {
+            playFromMediaPlayerVoice1(R.raw.h57);
+        } else if (value == 58) {
+            playFromMediaPlayerVoice1(R.raw.h58);
+        } else if (value == 59) {
+            playFromMediaPlayerVoice1(R.raw.h59);
+        } else if (value == 60) {
+            playFromMediaPlayerVoice1(R.raw.h60);
+        } else if (value == 61) {
+            playFromMediaPlayerVoice1(R.raw.h61);
+        } else if (value == 62) {
+            playFromMediaPlayerVoice1(R.raw.h62);
+        } else if (value == 63) {
+            playFromMediaPlayerVoice1(R.raw.h63);
+        } else if (value == 64) {
+            playFromMediaPlayerVoice1(R.raw.h64);
+        } else if (value == 65) {
+            playFromMediaPlayerVoice1(R.raw.h65);
+        } else if (value == 66) {
+            playFromMediaPlayerVoice1(R.raw.h66);
+        } else if (value == 67) {
+            playFromMediaPlayerVoice1(R.raw.h67);
+        } else if (value == 68) {
+            playFromMediaPlayerVoice1(R.raw.h68);
+        } else if (value == 69) {
+            playFromMediaPlayerVoice1(R.raw.h69);
         }
     }
 
@@ -850,5 +979,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    // テキストが背景色と混ざっても詠めるようにテキスト色を変更する：上部・下部
+    // color 色情報
+    private void setTextColor(String colorString) {
+        textViewUp.setTextColor(Color.parseColor(colorString));
+        textViewDown.setTextColor(Color.parseColor(colorString));
+    }
+
+    // テキストが背景色と混ざっても詠めるようにテキスト色を変更する：上部のみ
+    // color 色情報
+    private void setTextColorUp(String colorString) {
+        textViewUp.setTextColor(Color.parseColor(colorString));
+    }
+
+    // テキストが背景色と混ざっても詠めるようにテキスト色を変更する：下部のみ
+    // color 色情報
+    private void setTextColorDown(String colorString) {
+        textViewDown.setTextColor(Color.parseColor(colorString));
     }
 }

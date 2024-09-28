@@ -1,0 +1,52 @@
+com/eaglesakura/gles20/app/WorkerThread.java
+ com.eaglesakura.gles20.app.WorkerThread
+com/eaglesakura/gles20/RenderingActivity.java
+ com.eaglesakura.gles20.RenderingActivity
+com/eaglesakura/gles20/data/RawPixelImage.java
+ com.eaglesakura.gles20.data.RawPixelImage
+com/eaglesakura/gles20/SampleList.java
+ com.eaglesakura.gles20.SampleList
+com/eaglesakura/gles20/wallpaper/GLWallpaperService.java
+ com.eaglesakura.gles20.wallpaper.GLWallpaperService
+ com.eaglesakura.gles20.wallpaper.GLWallpaperService$GLEngine
+com/eaglesakura/gles20/util/ES20.java
+ com.eaglesakura.gles20.util.ES20
+com/eaglesakura/gles20/app/GLApplication.java
+ com.eaglesakura.gles20.app.GLApplication
+ com.eaglesakura.gles20.app.GLApplication$1
+ com.eaglesakura.gles20.app.GLApplication$1$1
+com/eaglesakura/gles20/app/RenderingThread.java
+ com.eaglesakura.gles20.app.RenderingThread
+ com.eaglesakura.gles20.app.RenderingThread$1
+ com.eaglesakura.gles20.app.RenderingThread$Status
+ com.eaglesakura.gles20.app.RenderingThread$SurfaceHolderCallbackImpl
+ com.eaglesakura.gles20.app.RenderingThread$SurfaceTextureListenerImpl
+com/eaglesakura/gles20/egl/EGLManager.java
+ com.eaglesakura.gles20.egl.EGLManager
+ com.eaglesakura.gles20.egl.EGLManager$1
+ com.eaglesakura.gles20.egl.EGLManager$ColorSpec
+com/eaglesakura/gles20/app/ndk/NDKApplication.java
+ com.eaglesakura.gles20.app.ndk.NDKApplication
+com/eaglesakura/gles20/service/GLViewService.java
+ com.eaglesakura.gles20.service.GLViewService
+com/eaglesakura/gles20/egl/EGLDevice.java
+ com.eaglesakura.gles20.egl.EGLDevice
+ com.eaglesakura.gles20.egl.EGLDevice$1
+com/eaglesakura/gles20/data/RawData.java
+ com.eaglesakura.gles20.data.RawData
+com/eaglesakura/gles20/Util.java
+ com.eaglesakura.gles20.Util
+com/eaglesakura/gles20_3d/BuildConfig.java
+ com.eaglesakura.gles20_3d.BuildConfig
+com/eaglesakura/gles20/data/AndroidPlatformData.java
+ com.eaglesakura.gles20.data.AndroidPlatformData
+com/eaglesakura/gles20/MenuActivity.java
+ com.eaglesakura.gles20.MenuActivity
+ com.eaglesakura.gles20.MenuActivity$1
+ com.eaglesakura.gles20.MenuActivity$2
+ com.eaglesakura.gles20.MenuActivity$3
+ com.eaglesakura.gles20.MenuActivity$4
+ com.eaglesakura.gles20.MenuActivity$SampleItem
+com/eaglesakura/gles20/miracast/MiracastController.java
+ com.eaglesakura.gles20.miracast.MiracastController
+ com.eaglesakura.gles20.miracast.MiracastController$GLPresentation
